@@ -133,6 +133,7 @@ stdenv.mkDerivation {
 
   buildInputs = runtimeLibs;
 
+  # When I remove this and add all of missing qt deps - app segfaults in the settings
   autoPatchelfIgnoreMissingDeps = true;
 
   installPhase = ''
