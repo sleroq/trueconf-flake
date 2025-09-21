@@ -148,20 +148,13 @@ stdenv.mkDerivation {
       cp -r --preserve=mode -T "$TMPDIR/extract/opt" "$out/opt"
     fi
 
+    # Probably ok to delete this but too lazy to test
     for d in applications icons metainfo pixmaps; do
       if [ -d "$TMPDIR/extract/usr/share/$d" ]; then
         mkdir -p "$out/share/$d"
         cp -r --preserve=mode "$TMPDIR/extract/usr/share/$d/"* "$out/share/$d/"
       fi
     done
-
-    if [ -f "$out/share/applications/trueconf.desktop" ]; then
-      substituteInPlace "$out/share/applications/trueconf.desktop" \
-        --replace '/opt/trueconf/client/trueconf' "$out/bin/trueconf" \
-        --replace '/opt/trueconf/client/TrueConf' "$out/bin/trueconf" \
-        --replace '/usr/share/pixmaps/trueconf.png' 'trueconf'
-      sed -i "s|^TryExec=.*|TryExec=$out/bin/trueconf|" "$out/share/applications/trueconf.desktop" || true
-    fi
 
     mkdir -p "$out/bin"
     target="$out/opt/trueconf/client/trueconf"
@@ -170,8 +163,10 @@ stdenv.mkDerivation {
       chmod 0755 "$out/opt/trueconf/client/qt5/libexec/QtWebEngineProcess" || true
     fi
 
+    # It does work with wayland but segfaults often, so I force x11 for now
     makeWrapper "$target" "$out/bin/trueconf" \
-      --set-default QT_QPA_PLATFORM xcb \
+      --set-default QT_QPA_PLATFORM "xcb" \
+      --set XDG_SESSION_TYPE "x11" \
       --prefix LD_LIBRARY_PATH : "$out/opt/trueconf/client/lib:$out/opt/trueconf/client/qt5/lib:${lib.makeLibraryPath runtimeLibs}" \
       --set LD_PRELOAD "${openblas}/lib/libopenblas.so.0" \
       --prefix PATH : "${lib.makeBinPath runtimeBins}" \
