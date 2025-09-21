@@ -117,7 +117,6 @@ stdenv.mkDerivation {
   inherit pname version;
 
   src = fetchurl {
-    # Upstream Debian package, version in query parameter
     url = "https://trueconf.com/download/client/linux/trueconf_client_debian13_amd64.deb?v=${version}";
     hash = "sha256-0Su/G61Djs6hdBKMrrRQIRDZvlApYF5qNLy1bRNERMQ=";
   };
