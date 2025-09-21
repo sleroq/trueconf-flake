@@ -5,31 +5,31 @@
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
   };
 
-  outputs = { nixpkgs, ... }: {
-    devShells.x86_64-linux.default = let
-      pkgs = import nixpkgs {
-        system = "x86_64-linux";
-        config = {
-          allowUnfree = true;
-          permittedInsecurePackages = [ "intel-media-sdk-23.2.2" ];
+  outputs =
+    { nixpkgs, ... }:
+    {
+      devShells.x86_64-linux.default =
+        let
+          pkgs = import nixpkgs {
+            system = "x86_64-linux";
+            config.allowUnfree = true;
+          };
+        in
+        pkgs.mkShell {
+          packages = [
+            pkgs.nixfmt-rfc-style
+          ];
         };
-      };
-    in pkgs.mkShell {
-      packages = [
-        pkgs.nixfmt-rfc-style
-      ];
-    };
-    packages.x86_64-linux = let
-      pkgs = import nixpkgs {
-        system = "x86_64-linux";
-        config = {
-          allowUnfree = true;
-          permittedInsecurePackages = [ "intel-media-sdk-23.2.2" ];
+      packages.x86_64-linux =
+        let
+          pkgs = import nixpkgs {
+            system = "x86_64-linux";
+            config.allowUnfree = true;
+          };
+        in
+        {
+          trueconf-client = pkgs.callPackage ./package.nix { };
+          default = (pkgs.callPackage ./package.nix { });
         };
-      };
-    in {
-      trueconf-client = pkgs.callPackage ./package.nix {};
-      default = (pkgs.callPackage ./package.nix {});
     };
-  };
 }
