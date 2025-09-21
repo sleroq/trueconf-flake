@@ -1,49 +1,50 @@
-{ lib
-, stdenv
-, fetchurl
-, autoPatchelfHook
-, makeWrapper
-, libarchive
-, zstd
+{
+  lib,
+  stdenv,
+  fetchurl,
+  autoPatchelfHook,
+  makeWrapper,
+  libarchive,
+  zstd,
 
-, coreutils
-, glibc
-, freetype
-, lame
-, libidn
-, speex
-, v4l-utils
-, xorg
-, libxkbcommon
-, alsa-lib
-, hunspell
-, gsl
-, openblas
-, blas
-, libva
-, opencv
-, c-ares
-, avahi
-, avahi-compat
-, nss
-, nspr
-, libpulseaudio
-, speexdsp
-, dbus
-, glib
-, krb5
-, libdrm
-, double-conversion
-, gtk3
-, lsb-release
-, lshw
-, procps
-, systemd
-, inetutils
-, zlib
-, libGL
-, fontconfig
-, udev
+  coreutils,
+  glibc,
+  freetype,
+  lame,
+  libidn,
+  speex,
+  v4l-utils,
+  xorg,
+  libxkbcommon,
+  alsa-lib,
+  hunspell,
+  gsl,
+  openblas,
+  blas,
+  libva,
+  opencv,
+  c-ares,
+  avahi,
+  avahi-compat,
+  nss,
+  nspr,
+  libpulseaudio,
+  speexdsp,
+  dbus,
+  glib,
+  krb5,
+  libdrm,
+  double-conversion,
+  gtk3,
+  lsb-release,
+  lshw,
+  procps,
+  systemd,
+  inetutils,
+  zlib,
+  libGL,
+  fontconfig,
+  udev,
 }:
 
 let
@@ -190,5 +191,3 @@ stdenv.mkDerivation {
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
   };
 }
-
-
