@@ -42,17 +42,6 @@ Includes a wrapper, desktop entry, and icons.
 
 </details>
 
-## Audio
-
-Tested with PipeWire (PulseAudio compatibility). Should also work with
-PulseAudio if it provides a Pulse socket. The wrapper uses an existing Pulse
-socket and does not start a PulseAudio daemon.
-
-## Desktop
-
-Installs a `.desktop` entry and icons; after installation they should appear in
-most desktops (e.g. GNOME/KDE) under your applications menu.
-
 ## Disclaimer
 
 I am not affiliated, associated, authorized, endorsed by, or in any way
